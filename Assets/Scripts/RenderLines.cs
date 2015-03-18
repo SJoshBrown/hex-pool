@@ -6,21 +6,22 @@ public class RenderLines : MonoBehaviour {
 	private Vector3 mousePosition;
 	private Vector3 mouseWorld;
 	public Camera gameCamera;
-
+	public GameObject sphereCastTestObject;
 	// Use this for initialization
 	void Start () {
-		line = gameObject.GetComponent<LineRenderer> ();
-		line.SetWidth(0.1f, 0.1f);
-		line.SetVertexCount(2);
-		gameCamera = GameObject.FindObjectOfType<Camera> ();
+		//line = gameObject.GetComponent<LineRenderer> ();
+		//line.SetWidth(0.1f, 0.1f);
+		//line.SetVertexCount(2);
+		//gameCamera = GameObject.FindObjectOfType<Camera> ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		mousePosition = Input.mousePosition;
-		mousePosition.z = gameObject.transform.position.z;
-		mouseWorld = gameCamera.ScreenToWorldPoint(mousePosition);
-
+		//mousePosition.z = gameObject.transform.position.z;
+		//mouseWorld = gameCamera.ScreenToWorldPoint(mousePosition);
+		//mouseWorld.y = gameObject.transform.position.y;
 		UpdateLine ();
 	}
 
@@ -29,9 +30,12 @@ public class RenderLines : MonoBehaviour {
 	void UpdateLine()
 	{
 
-
-		line.SetPosition(0, gameObject.transform.position);
-		line.SetPosition (1, mouseWorld);
+		Ray ray = gameCamera.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
+		if (Physics.Raycast (ray, out hit)) {
+			sphereCastTestObject.transform.position = new Vector3(hit.point.x, gameObject.transform.position.y, hit.point.z);
+		}
 
 	}
 }
