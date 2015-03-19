@@ -42,14 +42,14 @@ public class RenderLines : MonoBehaviour {
 		}
 		Physics.SphereCast (this.gameObject.transform.position, 0.25f, cueBallDirection, out sphereHit);
 		//Ray bounceRay = 
-
-		Physics.Raycast (sphereHit.point,sphereHit.normal, out bounceHit);
+		Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
+		Physics.Raycast (sphereHit.point,newDirection, out bounceHit);
 			
 		line.SetPosition (0, this.gameObject.transform.position);
 		line.SetPosition (1, new Vector3 (sphereHit.point.x, this.gameObject.transform.position.y, sphereHit.point.z));
 		line.SetPosition (2, bounceHit.point);
 		if (Input.GetMouseButtonDown (0)) {
-			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 5000.0f);
+			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 15000.0f);
 			Debug.Log (cueBallDirection.y);
 		}
 
