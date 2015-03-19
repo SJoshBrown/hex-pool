@@ -62,9 +62,9 @@ public class RenderLines : MonoBehaviour {
 			}
 		if (Physics.SphereCast (this.gameObject.transform.position, 0.35f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
 				Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
-				Physics.Raycast (sphereHit.collider.transform.position, newDirection, out bounceHit);
+				Physics.Raycast (sphereHit.collider.transform.position, -newDirection, out bounceHit);
 				line.SetPosition (1,new Vector3(sphereHit.point.x,this.gameObject.transform.position.y,sphereHit.point.z));
-			bounceLine.SetVertexCount(2);
+				bounceLine.SetVertexCount(2);
 				bounceLine.SetPosition (0, sphereHit.collider.transform.position);
 				bounceLine.SetPosition (1, bounceHit.point);
 
