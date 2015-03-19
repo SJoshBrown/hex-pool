@@ -12,9 +12,9 @@ public class RenderLines : MonoBehaviour {
 	void Start () {
 		line = gameObject.GetComponent<LineRenderer> ();
 		line.SetWidth(0.1f, 0.1f);
-		line.SetVertexCount(2);
+		line.SetVertexCount(3);
 		//gameCamera = GameObject.FindObjectOfType<Camera> ();
-		Physics.sleepThreshold = 1000.0f;
+		//Physics.sleepThreshold = 1000.0f;
 
 	}
 	
@@ -31,22 +31,27 @@ public class RenderLines : MonoBehaviour {
 	void UpdateLine()
 	{
 
-		Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay(Input.mousePosition);
+		Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		RaycastHit sphereHit;
-		Debug.DrawRay(mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
+		RaycastHit bounceHit;
+		Debug.DrawRay (mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
 		if (Physics.Raycast (mouseToWorldSpaceRay, out hit)) {
-			cueBallDirection = (new Vector3(hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
-			if(Physics.SphereCast(this.gameObject.transform.position,0.25f, -cueBallDirection, out sphereHit))
-			{			
-				line.SetPosition(0,this.gameObject.transform.position);
-				line.SetPosition(1,sphereHit.point);
-			}
+			cueBallDirection = (gameObject.transform.position - new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z)).normalized;
+			cueBallDirection.y = 0.0f;
 		}
-		if (Input.GetMouseButtonDown(0)) {
-			this.gameObject.GetComponent<Rigidbody> ().AddForce (new Vector3(-cueBallDirection.x,0,-cueBallDirection.z) * 5000.0f);
+		Physics.SphereCast (this.gameObject.transform.position, 0.25f, cueBallDirection, out sphereHit);
+		//Ray bounceRay = 
+
+		Physics.Raycast (sphereHit.point,sphereHit.normal, out bounceHit);
+			
+		line.SetPosition (0, this.gameObject.transform.position);
+		line.SetPosition (1, new Vector3 (sphereHit.point.x, this.gameObject.transform.position.y, sphereHit.point.z));
+		line.SetPosition (2, bounceHit.point);
+		if (Input.GetMouseButtonDown (0)) {
+			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 2500.0f);
 			Debug.Log (cueBallDirection.y);
 		}
 
-	}
+	}	
 }
