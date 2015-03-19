@@ -54,10 +54,10 @@ public class RenderLines : MonoBehaviour {
 			RaycastHit bounceHit;
 			Debug.DrawRay (mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
 			if (Physics.Raycast (mouseToWorldSpaceRay, out hit)) {
-				cueBallDirection = (gameObject.transform.position - new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z)).normalized;
+			cueBallDirection = (new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
 				cueBallDirection.y = 0.0f;
 			}
-			Physics.SphereCast (this.gameObject.transform.position, 0.25f, cueBallDirection, out sphereHit);
+			Physics.SphereCast (this.gameObject.transform.position, 0.35f, cueBallDirection, out sphereHit);
 			//Ray bounceRay = 
 			Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
 			Physics.Raycast (sphereHit.point, newDirection, out bounceHit);
