@@ -49,7 +49,7 @@ public class RenderLines : MonoBehaviour {
 		line.SetPosition (1, new Vector3 (sphereHit.point.x, this.gameObject.transform.position.y, sphereHit.point.z));
 		line.SetPosition (2, bounceHit.point);
 		if (Input.GetMouseButtonDown (0)) {
-			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 2500.0f);
+			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 5000.0f);
 			Debug.Log (cueBallDirection.y);
 		}
 
