@@ -66,7 +66,7 @@ public class RenderLines : MonoBehaviour {
 			line.SetPosition (1, new Vector3 (sphereHit.point.x, this.gameObject.transform.position.y, sphereHit.point.z));
 			line.SetPosition (2, bounceHit.point);
 			if (Input.GetMouseButtonDown (0)) {
-				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 30000.0f);
+				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 15000.0f);
 				allAsleep = false;
 				line.SetVertexCount(0);
 				lastHit = Time.realtimeSinceStartup;
