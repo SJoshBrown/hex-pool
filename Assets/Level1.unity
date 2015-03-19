@@ -664,6 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4f6ebd2a3b64f97beda608a2c09e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chargeLevel: 0
   gameCamera: {fileID: 1839612064}
   sphereCastTestObject: {fileID: 0}
 --- !u!114 &1278643708
@@ -729,7 +730,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400012, guid: 57ffc8dddc41a0644a5f04f03726cd65, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1278643705}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: .0372447856, w: .999306202}
   m_LocalPosition: {x: -.0500000007, y: .5, z: 4.98999977}
   m_LocalScale: {x: 13, y: 13, z: 13}
   m_Children: []
@@ -745,7 +746,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1145,8 +1146,8 @@ Camera:
   m_GameObject: {fileID: 1839612060}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1175,8 +1176,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1839612060}
-  m_LocalRotation: {x: -.282130033, y: .714215279, z: -.493624806, w: -.408207983}
-  m_LocalPosition: {x: 10.25, y: 23.6000004, z: 3.47000003}
+  m_LocalRotation: {x: -.29502371, y: .698085248, z: -.516183972, w: -.398988932}
+  m_LocalPosition: {x: 8.69999981, y: 24.2999992, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1191,7 +1192,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

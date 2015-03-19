@@ -6,12 +6,16 @@ public class RenderLines : MonoBehaviour {
 	private LineRenderer bounceLine;
 	private Vector3 mousePosition;
 	private Vector3 mouseWorld;
+	public float chargeLevel;
 	public Camera gameCamera;
 	public GameObject sphereCastTestObject;
 	private Vector3 cueBallDirection;
 	private bool allAsleep;
 	private float now;
 	private float lastHit;
+
+	private float startCharge;
+
 	// Use this for initialization
 	void Start () {
 		line = gameObject.GetComponent<LineRenderer> ();
@@ -38,14 +42,29 @@ public class RenderLines : MonoBehaviour {
 			CheckObjectsHaveStopped ();
 		} 
 		now = Time.realtimeSinceStartup;
-		if (now - lastHit >= 5.0f)
+		if (now - lastHit >= 6.5f)
 		{
 			StopAllObjects();
 			//allAsleep = true;
 		}
+		if (Input.GetMouseButtonDown(0))
+		{
+			Debug.Log ("charging");
+			startCharge = Time.realtimeSinceStartup;
+		}
+		if (Input.GetMouseButtonUp (0)) 
+		{
+			chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 1.0f);
+			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
+			allAsleep = false;
+			line.SetVertexCount (0);
+			bounceLine.SetVertexCount(0);
+			lastHit = Time.realtimeSinceStartup;
 
+		}
+		
 	}
-
+	
 	
 	void UpdateLine()
 	{
@@ -73,15 +92,7 @@ public class RenderLines : MonoBehaviour {
 			bounceLine.SetVertexCount(0);
 			line.SetPosition (1, new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z));
 		}
-
-		if (Input.GetMouseButtonDown (0)) 
-			{
-				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 15000.0f);
-				allAsleep = false;
-				line.SetVertexCount (0);
-				bounceLine.SetVertexCount(0);
-				lastHit = Time.realtimeSinceStartup;
-			}		
+				
 	} 
 
 
