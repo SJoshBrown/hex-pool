@@ -83,11 +83,9 @@ public class RenderLines : MonoBehaviour {
 			{
 				if(!GO.IsSleeping())
 				{
-					print ("asleep");
 					allObjectsAsleep = false;
 				}
 			}
-		print ("assigning");
 		allAsleep = allObjectsAsleep;
 			
 	}

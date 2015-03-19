@@ -2,14 +2,21 @@
 using System.Collections;
 
 public class BallBehavior : MonoBehaviour {
-
+	private float startHeight;
 	// Use this for initialization
-	void Start () {
-		//Physics.sleepThreshold = 1000.0f;
+	void Awake () {
+		startHeight = this.gameObject.transform.position.y;
+		Debug.Log (startHeight);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (this.gameObject.transform.position.y > startHeight) {
+			this.gameObject.transform.position = new Vector3 (
+			this.gameObject.transform.position.x,
+			Mathf.Clamp (this.gameObject.transform.position.y, -5.0f, startHeight),
+			this.gameObject.transform.position.z
+			);
+		}
 	}
 }
