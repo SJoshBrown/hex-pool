@@ -38,7 +38,25 @@ public class RenderLines : MonoBehaviour {
 		//mouseWorld.y = gameObject.transform.position.y;
 		if (allAsleep) {
 			UpdateLine ();
+			if (Input.GetMouseButtonDown(0))
+			{
+				Debug.Log ("charging");
+				startCharge = Time.realtimeSinceStartup;
+			}
+			if (Input.GetMouseButtonUp (0)) 
+			{
+				line.SetVertexCount (0);
+				bounceLine.SetVertexCount(0);
+				chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 1.0f);
+				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
+				allAsleep = false;
+
+				lastHit = Time.realtimeSinceStartup;
+				
+			}
+
 		} else {
+
 			CheckObjectsHaveStopped ();
 		} 
 		now = Time.realtimeSinceStartup;
@@ -47,33 +65,20 @@ public class RenderLines : MonoBehaviour {
 			StopAllObjects();
 			//allAsleep = true;
 		}
-		if (Input.GetMouseButtonDown(0))
-		{
-			Debug.Log ("charging");
-			startCharge = Time.realtimeSinceStartup;
-		}
-		if (Input.GetMouseButtonUp (0)) 
-		{
-			chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 1.0f);
-			this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
-			allAsleep = false;
-			line.SetVertexCount (0);
-			bounceLine.SetVertexCount(0);
-			lastHit = Time.realtimeSinceStartup;
 
-		}
 		
 	}
 	
 	
 	void UpdateLine()
 	{
-			line.SetVertexCount(2);
+			
 			Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			RaycastHit sphereHit;
 			RaycastHit bounceHit;
 			Debug.DrawRay (mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
+			line.SetVertexCount(2);
 			line.SetPosition (0, this.gameObject.transform.position);
 			if (Physics.Raycast (mouseToWorldSpaceRay, out hit)) {
 			cueBallDirection = (new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
@@ -82,13 +87,13 @@ public class RenderLines : MonoBehaviour {
 		if (Physics.SphereCast (this.gameObject.transform.position, 0.32f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
 				Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
 				Physics.Raycast (sphereHit.collider.transform.position, -newDirection, out bounceHit);
+				
 				line.SetPosition (1,new Vector3(sphereHit.point.x,this.gameObject.transform.position.y,sphereHit.point.z));
 				bounceLine.SetVertexCount(2);
 				bounceLine.SetPosition (0, sphereHit.collider.transform.position);
 				bounceLine.SetPosition (1, bounceHit.point);
 
 		} else{
-			//line.SetVertexCount (2);
 			bounceLine.SetVertexCount(0);
 			line.SetPosition (1, new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z));
 		}
