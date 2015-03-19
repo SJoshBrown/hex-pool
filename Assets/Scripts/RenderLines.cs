@@ -53,24 +53,35 @@ public class RenderLines : MonoBehaviour {
 			RaycastHit sphereHit;
 			RaycastHit bounceHit;
 			Debug.DrawRay (mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
+			line.SetPosition (0, this.gameObject.transform.position);
 			if (Physics.Raycast (mouseToWorldSpaceRay, out hit)) {
 			cueBallDirection = (new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
 				cueBallDirection.y = 0.0f;
 			}
-			Physics.SphereCast (this.gameObject.transform.position, 0.35f, cueBallDirection, out sphereHit);
-			//Ray bounceRay = 
-			Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
-			Physics.Raycast (sphereHit.point, newDirection, out bounceHit);
+		if (Physics.SphereCast (this.gameObject.transform.position, 0.35f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
+				Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
+				Physics.Raycast (sphereHit.point, newDirection, out bounceHit);
+				line.SetPosition (1,new Vector3(sphereHit.point.x,this.gameObject.transform.position.y,sphereHit.point.z));
+				line.SetPosition (2, bounceHit.point);
+		} else{
+			line.SetVertexCount (2);
+			line.SetPosition (1, new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z));
+		}
+	//Ray bounceRay = 
 			
-			line.SetPosition (0, this.gameObject.transform.position);
-			line.SetPosition (1, new Vector3 (sphereHit.point.x, this.gameObject.transform.position.y, sphereHit.point.z));
-			line.SetPosition (2, bounceHit.point);
-			if (Input.GetMouseButtonDown (0)) {
+
+			
+			
+				
+
+		if (Input.GetMouseButtonDown (0)) 
+			{
 				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 15000.0f);
 				allAsleep = false;
-				line.SetVertexCount(0);
+				line.SetVertexCount (0);
 				lastHit = Time.realtimeSinceStartup;
 			}
+		
 	} 
 
 
