@@ -3,6 +3,7 @@ using System.Collections;
 
 public class RenderLines : MonoBehaviour {
 	private LineRenderer line;
+	private LineRenderer bounceLine;
 	private Vector3 mousePosition;
 	private Vector3 mouseWorld;
 	public Camera gameCamera;
@@ -15,7 +16,10 @@ public class RenderLines : MonoBehaviour {
 	void Start () {
 		line = gameObject.GetComponent<LineRenderer> ();
 		line.SetWidth(0.1f, 0.1f);
-		line.SetVertexCount(3);
+		line.SetVertexCount(0);
+		bounceLine = gameCamera.GetComponent<LineRenderer>();
+		bounceLine.SetWidth (0.1f, 0.1f);
+		bounceLine.SetVertexCount (0);
 		//gameCamera = GameObject.FindObjectOfType<Camera> ();
 		//Physics.sleepThreshold = 1000.0f;
 		allAsleep = true;
@@ -45,9 +49,7 @@ public class RenderLines : MonoBehaviour {
 	
 	void UpdateLine()
 	{
-
-
-			line.SetVertexCount(3);
+			line.SetVertexCount(2);
 			Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			RaycastHit sphereHit;
@@ -60,28 +62,26 @@ public class RenderLines : MonoBehaviour {
 			}
 		if (Physics.SphereCast (this.gameObject.transform.position, 0.35f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
 				Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
-				Physics.Raycast (sphereHit.point, newDirection, out bounceHit);
+				Physics.Raycast (sphereHit.collider.transform.position, newDirection, out bounceHit);
 				line.SetPosition (1,new Vector3(sphereHit.point.x,this.gameObject.transform.position.y,sphereHit.point.z));
-				line.SetPosition (2, bounceHit.point);
+			bounceLine.SetVertexCount(2);
+				bounceLine.SetPosition (0, sphereHit.collider.transform.position);
+				bounceLine.SetPosition (1, bounceHit.point);
+
 		} else{
-			line.SetVertexCount (2);
+			//line.SetVertexCount (2);
+			bounceLine.SetVertexCount(0);
 			line.SetPosition (1, new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z));
 		}
-	//Ray bounceRay = 
-			
-
-			
-			
-				
 
 		if (Input.GetMouseButtonDown (0)) 
 			{
 				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 15000.0f);
 				allAsleep = false;
 				line.SetVertexCount (0);
+				bounceLine.SetVertexCount(0);
 				lastHit = Time.realtimeSinceStartup;
-			}
-		
+			}		
 	} 
 
 
