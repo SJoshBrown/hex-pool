@@ -32,22 +32,18 @@ public class RenderLines : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//mousePosition = Input.mousePosition;
-		//mousePosition.z = gameObject.transform.position.z;
-		//mouseWorld = gameCamera.ScreenToWorldPoint(mousePosition);
-		//mouseWorld.y = gameObject.transform.position.y;
+
 		if (allAsleep) {
 			UpdateLine ();
 			if (Input.GetMouseButtonDown(0))
 			{
-				Debug.Log ("charging");
 				startCharge = Time.realtimeSinceStartup;
 			}
 			if (Input.GetMouseButtonUp (0)) 
 			{
 				line.SetVertexCount (0);
 				bounceLine.SetVertexCount(0);
-				chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 1.0f);
+				chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 2.0f) / 2.0f;
 				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
 				allAsleep = false;
 
@@ -60,7 +56,7 @@ public class RenderLines : MonoBehaviour {
 			CheckObjectsHaveStopped ();
 		} 
 		now = Time.realtimeSinceStartup;
-		if (now - lastHit >= 6.5f)
+		if (now - lastHit >= 5.0f)
 		{
 			StopAllObjects();
 			//allAsleep = true;
@@ -84,7 +80,7 @@ public class RenderLines : MonoBehaviour {
 			cueBallDirection = (new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
 				cueBallDirection.y = 0.0f;
 			}
-		if (Physics.SphereCast (this.gameObject.transform.position, 0.32f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
+		if (Physics.SphereCast (this.gameObject.transform.position, 0.30f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
 				Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
 				Physics.Raycast (sphereHit.collider.transform.position, -newDirection, out bounceHit);
 				
