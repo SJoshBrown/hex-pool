@@ -261,6 +261,8 @@ GameObject:
   - 33: {fileID: 290955692}
   - 64: {fileID: 290955691}
   - 23: {fileID: 290955690}
+  - 114: {fileID: 290955694}
+  - 54: {fileID: 290955695}
   m_Layer: 0
   m_Name: Plane 1
   m_TagString: Untagged
@@ -323,6 +325,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &290955694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290955689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c81f96738f6445aa6e399f78a215b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &290955695
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290955689}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &328736174
 GameObject:
   m_ObjectHideFlags: 0
