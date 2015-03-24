@@ -16,8 +16,13 @@ public class RenderLines : MonoBehaviour {
 
 	private float startCharge;
 
+	private GameManager gameManager;
+	public GameObject gameManagerObject;
+
 	// Use this for initialization
 	void Start () {
+		gameManager = gameManagerObject.GetComponent<GameManager> ();
+
 		line = gameObject.GetComponent<LineRenderer> ();
 		line.SetWidth(0.1f, 0.1f);
 		line.SetVertexCount(0);
@@ -47,8 +52,7 @@ public class RenderLines : MonoBehaviour {
 				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
 				allAsleep = false;
 
-				lastHit = Time.realtimeSinceStartup;
-				
+				lastHit = Time.realtimeSinceStartup;				
 			}
 
 		} else {
@@ -59,16 +63,13 @@ public class RenderLines : MonoBehaviour {
 		if (now - lastHit >= 5.0f)
 		{
 			StopAllObjects();
-			//allAsleep = true;
+			gameManager.CheckState();
 		}
 
-		
 	}
-	
-	
+
 	void UpdateLine()
 	{
-			
 			Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			RaycastHit sphereHit;
@@ -95,11 +96,9 @@ public class RenderLines : MonoBehaviour {
 		}
 				
 	} 
-
-
+	
 	void CheckObjectsHaveStopped()
 	{
-
 		Rigidbody[] GOS = FindObjectsOfType(typeof(Rigidbody)) as Rigidbody[];
 		bool allObjectsAsleep = true;
 			foreach (Rigidbody GO in GOS) 
@@ -109,8 +108,7 @@ public class RenderLines : MonoBehaviour {
 					allObjectsAsleep = false;
 				}
 			}
-		allAsleep = allObjectsAsleep;
-			
+		allAsleep = allObjectsAsleep;			
 	}
 
 	void StopAllObjects()
@@ -118,9 +116,6 @@ public class RenderLines : MonoBehaviour {
 		Rigidbody[] GOS = FindObjectsOfType (typeof(Rigidbody)) as Rigidbody[];
 		foreach (Rigidbody GO in GOS) {
 			GO.Sleep ();
-
 		}
-	}
-
-		
+	}		
 }

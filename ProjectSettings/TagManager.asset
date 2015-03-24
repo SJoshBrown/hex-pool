@@ -6,6 +6,8 @@ TagManager:
   tags:
   - sphereCast
   - ball
+  - eightBall
+  - cueBall
   layers:
   - Default
   - TransparentFX

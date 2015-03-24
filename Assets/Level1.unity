@@ -264,7 +264,7 @@ GameObject:
   - 114: {fileID: 290955694}
   - 54: {fileID: 290955695}
   m_Layer: 0
-  m_Name: Plane 1
+  m_Name: Destroyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64c81f96738f6445aa6e399f78a215b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManagerObject: {fileID: 1623220542}
 --- !u!54 &290955695
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1159,7 +1160,7 @@ GameObject:
   - 54: {fileID: 1278643714}
   m_Layer: 0
   m_Name: CueBall
-  m_TagString: Untagged
+  m_TagString: cueBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1189,6 +1190,7 @@ MonoBehaviour:
   chargeLevel: 0
   gameCamera: {fileID: 1839612064}
   sphereCastTestObject: {fileID: 0}
+  gameManagerObject: {fileID: 1623220542}
 --- !u!114 &1278643708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,7 +1270,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1577,7 +1579,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100030, guid: 57ffc8dddc41a0644a5f04f03726cd65, type: 2}
       propertyPath: m_TagString
-      value: ball
+      value: eightBall
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 57ffc8dddc41a0644a5f04f03726cd65, type: 2}
       propertyPath: m_TagString
@@ -1681,6 +1683,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329d84fab464128439eab02010525d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1623220542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1623220544}
+  - 114: {fileID: 1623220543}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1623220543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1623220542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb63c4af9218841fbb994291fa770c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shots: 0
+--- !u!4 &1623220544
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1623220542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -37.8233795, y: -36.1825981, z: 8.18110085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1 &1671930818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,7 +1964,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

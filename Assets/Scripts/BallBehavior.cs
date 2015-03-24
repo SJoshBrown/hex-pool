@@ -6,7 +6,6 @@ public class BallBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		startHeight = this.gameObject.transform.position.y;
-		Debug.Log (startHeight);
 	}
 	
 	// Update is called once per frame
