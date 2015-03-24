@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour {
 	public void CheckState() {
 		Debug.Log ("check");
 		if (!(cueBall)) {
-			Debug.Log ("game over");
+			GameOver ();
 		} else if (!(eightBall) && (ballCount > 0)) {
-			Debug.Log ("game over eightball");
+			GameOver ();
 		} else if (!(eightBall) && (ballCount == 0)) {
 			Debug.Log ("win");
 		}

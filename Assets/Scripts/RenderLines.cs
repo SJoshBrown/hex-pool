@@ -29,8 +29,6 @@ public class RenderLines : MonoBehaviour {
 		bounceLine = gameCamera.GetComponent<LineRenderer>();
 		bounceLine.SetWidth (0.1f, 0.1f);
 		bounceLine.SetVertexCount (0);
-		//gameCamera = GameObject.FindObjectOfType<Camera> ();
-		//Physics.sleepThreshold = 1000.0f;
 		allAsleep = true;
 
 	}
@@ -54,18 +52,15 @@ public class RenderLines : MonoBehaviour {
 
 				lastHit = Time.realtimeSinceStartup;				
 			}
-
-		} else {
-
-			CheckObjectsHaveStopped ();
 		} 
+		//else {
+		//	CheckObjectsHaveStopped ();
+		//} 
 		now = Time.realtimeSinceStartup;
 		if (now - lastHit >= 5.0f)
 		{
 			StopAllObjects();
-			gameManager.CheckState();
 		}
-
 	}
 
 	void UpdateLine()
@@ -97,19 +92,19 @@ public class RenderLines : MonoBehaviour {
 				
 	} 
 	
-	void CheckObjectsHaveStopped()
-	{
-		Rigidbody[] GOS = FindObjectsOfType(typeof(Rigidbody)) as Rigidbody[];
-		bool allObjectsAsleep = true;
-			foreach (Rigidbody GO in GOS) 
-			{
-				if(!GO.IsSleeping())
-				{
-					allObjectsAsleep = false;
-				}
-			}
-		allAsleep = allObjectsAsleep;			
-	}
+	//void CheckObjectsHaveStopped()
+	//{
+	//	Rigidbody[] GOS = FindObjectsOfType(typeof(Rigidbody)) as Rigidbody[];
+	//	bool allObjectsAsleep = true;
+	//		foreach (Rigidbody GO in GOS) 
+	//		{
+	//			if(!GO.IsSleeping())
+	//			{
+	//				allObjectsAsleep = false;
+	//			}
+	//		}
+	//	allAsleep = allObjectsAsleep;			
+	//}
 
 	void StopAllObjects()
 	{
@@ -117,5 +112,7 @@ public class RenderLines : MonoBehaviour {
 		foreach (Rigidbody GO in GOS) {
 			GO.Sleep ();
 		}
+		gameManager.CheckState();
+		allAsleep = true;
 	}		
 }
