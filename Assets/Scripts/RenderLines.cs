@@ -57,7 +57,7 @@ public class RenderLines : MonoBehaviour {
 		//	CheckObjectsHaveStopped ();
 		//} 
 		now = Time.realtimeSinceStartup;
-		if (now - lastHit >= 5.0f)
+		if ((now - lastHit >= 5.0f) && !allAsleep)
 		{
 			StopAllObjects();
 		}
