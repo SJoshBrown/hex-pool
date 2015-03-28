@@ -27,15 +27,16 @@ public class BallBehavior : MonoBehaviour {
 		}
 	}
 	void OnCollisionEnter(Collision coll ) {
-		float volume = coll.relativeVelocity.magnitude / 100;
+
 		collidingBallBehavior = coll.collider.gameObject.GetComponent<BallBehavior> ();
 		if (collidingBallBehavior != null) {
 			bool isBall = coll.collider.gameObject.GetComponent<BallBehavior> ().isBall;
 		
-			if (isBall)
+			if (isBall){
+				float volume = coll.relativeVelocity.magnitude / 100;
 				AudioSource.PlayClipAtPoint (clack, transform.position, volume);
+			}
 		}
-		Debug.Log (volume);
 	}
 
 }
