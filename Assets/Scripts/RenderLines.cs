@@ -86,6 +86,9 @@ public class RenderLines : MonoBehaviour {
 				bounceLine.SetPosition (0, sphereHit.collider.transform.position);
 				bounceLine.SetPosition (1, bounceHit.point);
 			}
+			else {
+				bounceLine.SetVertexCount(0);
+			}
 
 
 		} else{
