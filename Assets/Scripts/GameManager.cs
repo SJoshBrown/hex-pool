@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	public int Shots;
 	private bool cueBall;
 	private bool eightBall;
 	private int ballCount;
+	public Text shotsText;
 	// Use this for initialization
 	void Start () {
 		cueBall = true;
@@ -15,7 +17,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		shotsText.text = "Shots: " + Shots;
 	}
 
 	void KillPlayer(){
@@ -48,5 +50,10 @@ public class GameManager : MonoBehaviour {
 	}
 	void GameOver() {
 		Debug.Log ("game over");
+	}
+
+	public void TakeShot() {
+		Shots++;
+		Debug.Log ("shot taken");
 	}
 }

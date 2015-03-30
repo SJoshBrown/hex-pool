@@ -44,11 +44,13 @@ public class RenderLines : MonoBehaviour {
 			}
 			if (Input.GetMouseButtonUp (0)) 
 			{
+				gameManager.TakeShot();
 				line.SetVertexCount (0);
 				bounceLine.SetVertexCount(0);
 				chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 2.0f) / 2.0f;
 				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
 				allAsleep = false;
+
 
 				lastHit = Time.realtimeSinceStartup;				
 			}
