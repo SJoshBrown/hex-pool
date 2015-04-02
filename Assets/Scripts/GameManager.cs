@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 	private bool eightBall;
 	private int ballCount;
 	public Text shotsText;
+	public Canvas pauseMenu;
+	public Canvas gameUI;
 	// Use this for initialization
 	void Start () {
 		cueBall = true;
@@ -18,6 +20,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		shotsText.text = "Shots: " + Shots;
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Pause();
+		}
 	}
 
 	void KillPlayer(){
@@ -50,6 +56,14 @@ public class GameManager : MonoBehaviour {
 	}
 	void GameOver() {
 		Debug.Log ("game over");
+	}
+
+	//Taken from http://unity3d.com/learn/tutorials/modules/beginner/live-training-archive/using-the-ui-tools
+	public void Pause()
+	{
+		pauseMenu.enabled = !pauseMenu.enabled;
+		gameUI.enabled = !gameUI.enabled;
+		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 	}
 
 	public void TakeShot() {
