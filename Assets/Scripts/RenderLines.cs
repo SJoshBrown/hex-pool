@@ -40,26 +40,26 @@ public class RenderLines : MonoBehaviour {
 			UpdateLine ();
 			if (Input.GetMouseButtonDown(0))
 			{
-				startCharge = Time.realtimeSinceStartup;
+				startCharge = Time.time;
 			}
 			if (Input.GetMouseButtonUp (0)) 
 			{
 				gameManager.TakeShot();
 				line.SetVertexCount (0);
 				bounceLine.SetVertexCount(0);
-				chargeLevel = Mathf.Clamp(Time.realtimeSinceStartup - startCharge, 0.0f, 2.0f) / 2.0f;
+				chargeLevel = Mathf.Clamp(Time.time - startCharge, 0.0f, 2.0f) / 2.0f;
 				this.gameObject.GetComponent<Rigidbody> ().AddForce (cueBallDirection * 20000.0f * chargeLevel);
 				allAsleep = false;
 
 
-				lastHit = Time.realtimeSinceStartup;				
+				lastHit = Time.time;				
 			}
 		} 
 		//else {
 		//	CheckObjectsHaveStopped ();
 		//} 
-		now = Time.realtimeSinceStartup;
-		if ((now - lastHit >= 5.0f) && !allAsleep)
+		now = Time.time;
+		if ((now - lastHit >= 6) && !allAsleep)
 		{
 			StopAllObjects();
 		}
