@@ -4,8 +4,7 @@ using System.Collections;
 public class BallBehavior : MonoBehaviour {
 	private BallBehavior collidingBallBehavior;
 	public AudioClip clack;
-
-
+	
 	[HideInInspector]
 	public bool isBall;
 
@@ -18,6 +17,7 @@ public class BallBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//Clamp balls in the y direction to prevent them flying off the table
 		if (this.gameObject.transform.position.y > (startHeight)) {
 			this.gameObject.transform.position = new Vector3 (
 			this.gameObject.transform.position.x,
@@ -26,6 +26,8 @@ public class BallBehavior : MonoBehaviour {
 			);
 		}
 	}
+
+	//Call sound based on impact velocity
 	void OnCollisionEnter(Collision coll ) {
 
 		collidingBallBehavior = coll.collider.gameObject.GetComponent<BallBehavior> ();

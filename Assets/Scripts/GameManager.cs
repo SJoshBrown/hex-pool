@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void CheckState() {
-		if (!(cueBall)) {
+		if (!cueBall) {
 			GameOver ();
 		} else if (!(eightBall) && (ballCount > 0)) {
 			GameOver ();

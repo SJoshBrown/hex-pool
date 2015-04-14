@@ -54,9 +54,8 @@ public class CueBallBehavior : MonoBehaviour {
 				lastHit = Time.time;				
 			}
 		} 
-		//else {
-		//	CheckObjectsHaveStopped ();
-		//} 
+
+		//Give the balls 6 seconds to finsih moving before stopping them
 		now = Time.time;
 		if ((now - lastHit >= 6) && !allAsleep)
 		{
@@ -66,17 +65,17 @@ public class CueBallBehavior : MonoBehaviour {
 
 	void UpdateLine()
 	{
-			Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;
-			RaycastHit sphereHit;
-			RaycastHit bounceHit;
-			Debug.DrawRay (mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
-			line.SetVertexCount(2);
-			line.SetPosition (0, this.gameObject.transform.position);
-			if (Physics.Raycast (mouseToWorldSpaceRay, out hit)) {
-			cueBallDirection = (new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
-				cueBallDirection.y = 0.0f;
-			}
+		Ray mouseToWorldSpaceRay = gameCamera.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		RaycastHit sphereHit;
+		RaycastHit bounceHit;
+		Debug.DrawRay (mouseToWorldSpaceRay.origin, mouseToWorldSpaceRay.direction * 100, Color.yellow);
+		line.SetVertexCount(2);
+		line.SetPosition (0, this.gameObject.transform.position);
+		if (Physics.Raycast (mouseToWorldSpaceRay, out hit)) {
+		cueBallDirection = (new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).normalized;
+			cueBallDirection.y = 0.0f;
+		}
 		if (Physics.SphereCast (this.gameObject.transform.position, 0.30f, cueBallDirection, out sphereHit,(new Vector3 (hit.point.x, this.gameObject.transform.position.y, hit.point.z) - gameObject.transform.position).magnitude)){
 			Vector3 newDirection = new Vector3 (sphereHit.normal.x, 0.0f, sphereHit.normal.z);
 			Physics.Raycast (sphereHit.collider.transform.position, -newDirection, out bounceHit);
@@ -99,20 +98,6 @@ public class CueBallBehavior : MonoBehaviour {
 				
 	} 
 	
-	//void CheckObjectsHaveStopped()
-	//{
-	//	Rigidbody[] GOS = FindObjectsOfType(typeof(Rigidbody)) as Rigidbody[];
-	//	bool allObjectsAsleep = true;
-	//		foreach (Rigidbody GO in GOS) 
-	//		{
-	//			if(!GO.IsSleeping())
-	//			{
-	//				allObjectsAsleep = false;
-	//			}
-	//		}
-	//	allAsleep = allObjectsAsleep;			
-	//}
-
 	void StopAllObjects()
 	{
 		Rigidbody[] GOS = FindObjectsOfType (typeof(Rigidbody)) as Rigidbody[];

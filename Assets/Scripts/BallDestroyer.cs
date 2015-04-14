@@ -14,6 +14,7 @@ public class BallDestroyer : MonoBehaviour {
 	
 	}
 
+	//Destroy balls and call the according GameManager function
 	void OnCollisionEnter(Collision coll ) {
 		if (coll.collider.gameObject.tag == "eightBall")
 			gameManager.EightBall ();
